@@ -17,7 +17,7 @@
         <a mat-list-item routerLink="/" *ngIf="isAuthenticated">Dashboard</a>
         <a mat-list-item routerLink="/table" *ngIf="isAuthenticated">Table</a>
         <a mat-list-item routerLink="/charts" *ngIf="isAuthenticated">Charts</a>
-        <a mat-list-item (click)="logOut" *ngIf="isAuthenticated">Logout</a>
+        <a mat-list-item  *ngIf="isAuthenticated">Logout</a>
         <a mat-list-item routerLink="/login" *ngIf="!isAuthenticated">login</a>
       </mat-nav-list>
     </mat-sidenav>
