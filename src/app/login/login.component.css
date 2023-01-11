@@ -1,0 +1,30 @@
+
+  .login-container {
+    top: 50%;
+    left: 50%;
+    width: 30em;
+    height: 18em;
+    margin-top: -9em;
+    margin-left: -15em;
+    position: fixed;
+  }
+
+
+  .center-element {
+    justify-content: center;
+
+  }
+
+  .form-button {
+    justify-content: center;
+  }
+  .form-button button{
+    width: 50%;
+    padding: 6%;
+  }
+
+
+  .form-field {
+    width: 100%;
+  }
+

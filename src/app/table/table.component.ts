@@ -4,6 +4,8 @@ import { Component, OnInit, TemplateRef, ViewChild,AfterViewInit } from '@angula
 import { MovieModel } from '../shared/movie.model';
 import {MatTableDataSource} from '@angular/material/table';
 import { PaginationModel } from '../shared/pagination.model';
+import { AuthService } from '../services/auth.service';
+import { take } from 'rxjs';
 
 
 
@@ -15,7 +17,7 @@ import { PaginationModel } from '../shared/pagination.model';
 export class TableComponent  implements OnInit{
   @ViewChild('search', { static: false }) search: any;
 
-  constructor(private http:HttpClient){}
+  constructor(private http:HttpClient, private authService: AuthService){}
 
   LIMITS = [
     { key: '5', value: 5 },
@@ -31,8 +33,8 @@ export class TableComponent  implements OnInit{
   rowLimits: Array<any> = this.LIMITS;
 
 
+
   public temp: Array<object> = [];
-  public rows: Array<object> = [];
   public columns = [
     { name: 'title',sortable: true },
     { name: 'type',sortable: true },
@@ -57,10 +59,21 @@ export class TableComponent  implements OnInit{
 
   pagination = new PaginationModel();
 
-
-
+  downloadableData =[];
 
   ngOnInit(): void {
+
+    this.authService.user.pipe(take(1)).subscribe( (user)=> {
+
+    })
+
+
+    this.movies.map((key, value)=> {
+
+      console.log(key)
+      console.log(value)
+    });
+
     this.http.get(`http://127.0.0.1:5000/movies?size=${this.limit}`).subscribe(
       (response: any) => {
         this.movies = response.data;
@@ -115,6 +128,8 @@ export class TableComponent  implements OnInit{
   }
 
   changeRowLimits(event:any) {
+    this.authService.user.pipe(take(1)).subscribe()
+
     this.limit = event.target.value;
     this.pagination.size = this.limit
 

@@ -140,7 +140,13 @@
                         </select>
                       </mat-form-field>
                 </div>
-                
+
+                <a csvLink [data]="movies">
+                    <button mat-fab color="primary" aria-label="Example icon button with a delete icon">
+                        <mat-icon>download_for_offline</mat-icon>
+                        </button>
+                </a>
+
                 </ng-template>
               </ngx-datatable-footer>
             </ngx-datatable>

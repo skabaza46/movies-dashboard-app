@@ -1,0 +1,65 @@
+
+  <div class="login-container">
+    <mat-card>
+        <mat-card-content>
+            <div>
+            </div>
+            <div *ngIf="isLoading" style="justify-content: center;">
+                <app-loading-spinner></app-loading-spinner>
+
+            </div>
+            <form #loginForm (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+                <p>
+                    <mat-form-field class="form-field">
+                        <mat-label>Enter your email</mat-label>
+                        <input matInput placeholder="johndo@example.com" [formControl]="email" id="email" required [value]="email">
+                        <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </p>
+
+
+                <p *ngIf="!isLoginMode">
+                    <mat-form-field class="form-field">
+                        <mat-label>First Name</mat-label>
+                        <input matInput placeholder="john" [formControl]="first_name" id="first_name" required [value]="first_name">
+                        <mat-error *ngIf="first_name.invalid">{{getFirstNameErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </p>
+
+                <p *ngIf="!isLoginMode">
+                    <mat-form-field class="form-field">
+                        <mat-label>Last Name </mat-label>
+                        <input matInput placeholder="doe" [formControl]="last_name" id="last_name" required [value]="last_name">
+                        <mat-error *ngIf="last_name.invalid">{{getLastNameErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </p>
+
+                <p>
+                    <mat-form-field class="form-field">
+                        <mat-label>Enter your password</mat-label>
+                        <input matInput [type]="hidePassword ? 'password' : 'text'" [formControl]="password" id="password" required>
+                        <button mat-icon-button matSuffix (click)="hidePassword = !hidePassword" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePassword" minLength="8">
+                            <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                        <mat-error *ngIf="password.invalid">{{getPasswordErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </p>
+
+                <div>
+                    <mat-card-actions class="form-button" >
+                        <button type="submit" mat-raised-button color="primary" [disabled]="password.invalid || email.invalid">{{isLoginMode ? 'Login': 'Sign Up'}}</button>
+                    </mat-card-actions>
+                    <mat-card-actions class="form-button" >
+                        <button type="button" mat-raised-button color="primary" (click)="onSwitchMode()">Switch to {{ isLoginMode? 'Sign Up': 'Login'}}</button>
+                    </mat-card-actions>
+                </div>
+
+                <ng-template #registerUser>
+
+                </ng-template>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
+
