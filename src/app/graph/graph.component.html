@@ -1,1 +1,24 @@
-<p>graph works!</p>
+
+<div>
+
+    <mat-card>
+        <mat-card-content>
+            <br>
+            <br>
+            <chart #listingBar id="listing-data" class="chart-container" [type]="'bar'" [data]="listingsData" [options]="options"
+            style="height:40vh;"></chart>
+            <br>
+            <br>
+            <chart #ratingsBar class="chart-container" [type]="'bar'" [data]="rateingData" [options]="options"
+            style="height:40vh;"></chart>
+            <br>
+            <br>
+            <chart #generalBar id="general-data" class="chart-container" [type]="'bar'" [data]="generalData" [options]="options"
+            style="height:40vh;"></chart>
+
+
+        </mat-card-content>
+
+    </mat-card>
+
+</div>

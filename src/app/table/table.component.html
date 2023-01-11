@@ -1,5 +1,150 @@
-<p>table works!</p>
 
-<div>
-    <ngx-datatable class="material" [rows]="rows" [columns]="columns"></ngx-datatable>
-</div>
+    <div>
+        <mat-form-field>
+            <mat-label>Search</mat-label>
+            <input
+            #searchInput
+            type="text"
+            matInput (keyup)="updateFilter(searchInput.value)"
+            placeholder="Type to filter the data..."
+            value=""
+            matInput>
+        </mat-form-field>
+      <mat-card>
+        <mat-card-content>
+            <ngx-datatable
+                class="material"
+                [columns]="columns"
+                [headerHeight]="50"
+                [footerHeight]="60"
+                [limit]="10"
+                [rows]="movies"
+                [columnMode]="'force'"
+                [loadingIndicator]="loadingIndicator"
+                [reorderable]="reorderable"
+                [rowHeight]="'auto'"
+                [externalPaging]="true"
+                [count]="pagination.totalElements"
+                [offset]="0"
+                [limit]="pagination.size"
+                (page)="setPage($event)"
+                [scrollbarH]="true"
+                [limit]="limit"
+            >
+
+            <ngx-datatable-column name="title" prop="title">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="type" prop="type">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="date_added"  prop="date_added">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column  name="release_year" prop="release_year">
+                <ng-template ngx-datatable-cell-template let-value="value">
+                    {{value}}
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column  name="rating" prop="rating">
+            <ng-template ngx-datatable-cell-template let-value="value">
+                {{value}}
+              </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="duration" prop="duration">
+
+             <ng-template ngx-datatable-cell-template let-value="value">
+                {{value}}
+              </ng-template>
+
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="description" prop="description">
+                <ng-template let-value="value" ngx-datatable-cell-template>
+                    <button mat-raised-button color="primary" [matMenuTriggerFor]="menu">Description</button>
+                    <mat-menu #menu="matMenu">
+                        <button mat-menu-item >{{value}}</button>
+                    </mat-menu>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="casts" prop="casts" [sortable]="false">
+                <ng-template let-row="row" let-value="value" let-i="index" ngx-datatable-cell-template>
+                    <button mat-raised-button color="primary"  [matMenuTriggerFor]="menu" *ngIf="value.length > 0">Casts</button>
+                    <mat-menu #menu="matMenu">
+                        <ng-template ngFor let-cast [ngForOf]="value">
+                            <mat-list-item role="listitem">{{cast.name}}</mat-list-item>
+                        </ng-template>
+                    </mat-menu>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="countrys" prop="countrys" [sortable]="false">
+                <ng-template let-row="row" let-value="value" let-i="index" ngx-datatable-cell-template>
+                    <button mat-raised-button color="primary" [matMenuTriggerFor]="menu" *ngIf="value.length > 0">Countrys</button>
+                    <mat-menu #menu="matMenu">
+                        <ng-template ngFor let-country [ngForOf]="value">
+                            <mat-list-item role="listitem">{{country.name}}</mat-list-item>
+                        </ng-template>
+                    </mat-menu>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="directors" prop="directors" [sortable]="false">
+                <ng-template let-row="row" let-value="value" let-i="index" ngx-datatable-cell-template>
+                    <button mat-raised-button color="primary" [matMenuTriggerFor]="menu" *ngIf="value.length > 0">Directors</button>
+                    <mat-menu #menu="matMenu">
+                        <ng-template ngFor let-director [ngForOf]="value">
+                            <mat-list-item role="listitem">{{director.name}}</mat-list-item>
+                        </ng-template>
+                    </mat-menu>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-column name="listings" prop="listings" [sortable]="false">
+                <ng-template let-row="row" let-value="value" let-i="index" ngx-datatable-cell-template>
+                    <button mat-raised-button color="primary" [matMenuTriggerFor]="menu" *ngIf="value.length > 0">Listings</button>
+                    <mat-menu #menu="matMenu">
+                        <ng-template ngFor let-listing [ngForOf]="value">
+                            <mat-list-item role="listitem">{{listing.name}}</mat-list-item>
+                        </ng-template>
+                    </mat-menu>
+                </ng-template>
+            </ngx-datatable-column>
+
+            <ngx-datatable-footer *ngIf="true" >
+                <ng-template
+                  ngx-datatable-footer-template
+                  let-rowCount="rowCount"
+                  let-pageSize="pageSize"
+                  let-selectedCount="selectedCount"
+                  let-curPage="curPage"
+                  let-offset="offset"
+                >
+                <div class="parent">
+                    <mat-form-field appearance="fill" align="end">
+                        <mat-label>Select Row Limit</mat-label>
+                        <select matNativeControl (change)="changeRowLimits($event)">
+                            <option  *ngFor="let limit of rowLimits" [value]="limit.value" > {{limit.key}}</option>
+                        </select>
+                      </mat-form-field>
+                </div>
+                
+                </ng-template>
+              </ngx-datatable-footer>
+            </ngx-datatable>
+
+        </mat-card-content>
+
+     </mat-card>
