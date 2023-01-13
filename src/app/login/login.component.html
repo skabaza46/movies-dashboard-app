@@ -8,7 +8,7 @@
         <mat-card-content>
             <div>
             </div>
-
+            <mat-error style="text-align: center;" *ngIf="error">{{error}}</mat-error>
             <form #loginForm (ngSubmit)="onSubmit()">
                 <p>
                     <mat-form-field class="form-field">

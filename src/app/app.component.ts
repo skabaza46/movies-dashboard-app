@@ -1,7 +1,7 @@
 import {MediaMatcher} from '@angular/cdk/layout';
 import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { AuthService } from './services/auth.service';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { User } from './shared/user.model';
 import { Router } from '@angular/router';
 
@@ -15,6 +15,8 @@ export class AppComponent implements OnDestroy, OnInit{
   mobileQuery: MediaQueryList;
 
   userSub = new Subscription;
+
+  // userProfile =  Observable<User>;
 
   isAuthenticated = false;
 
@@ -56,7 +58,7 @@ export class AppComponent implements OnDestroy, OnInit{
     this.authService.isLoggedIn.subscribe(isLoggedIn=>{
 
       if (isLoggedIn){
-        this.isAuthenticated = isLoggedIn
+        this.isAuthenticated = isLoggedIn;
       }
 
     })

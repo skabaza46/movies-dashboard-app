@@ -98,10 +98,10 @@ export class LoginComponent implements OnInit {
         this.isLoading = false;
         this.router.navigate(['/dashboard']);
         this.isLoggedIn.next(false);
+        this.error = "";
       },
       errorMessage => {
-        console.log(errorMessage);
-        this.error = errorMessage;
+        this.error = "Login failed, please try again !";
         this.isLoading = false;
       }
     );

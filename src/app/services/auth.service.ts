@@ -16,7 +16,7 @@ export class AuthService {
 
     signUp = (email: string|null, first_name: string|null, last_name: string|null, password: string|null) => {
 
-        return this.http.post<AuthResponseData>( `${environment.apiUrl}/user/register'`,{
+        return this.http.post<AuthResponseData>( `${environment.apiUrl}/user/register`,{
             email: email,
             password: password,
             first_name: first_name,
