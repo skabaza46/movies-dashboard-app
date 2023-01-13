@@ -1,12 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, TemplateRef, ViewChild,AfterViewInit } from '@angular/core';
-// import { MoviesApiService } from '../services/movies-api.service';
 import { MovieModel } from '../shared/movie.model';
 import {MatTableDataSource} from '@angular/material/table';
 import { PaginationModel } from '../shared/pagination.model';
 import { AuthService } from '../services/auth.service';
 import { take } from 'rxjs';
-
+import { MoviesApiService } from '../services/movies-api.service';
 
 
 @Component({
@@ -17,7 +16,7 @@ import { take } from 'rxjs';
 export class TableComponent  implements OnInit{
   @ViewChild('search', { static: false }) search: any;
 
-  constructor(private http:HttpClient, private authService: AuthService){}
+  constructor(private http:HttpClient, private authService: AuthService, private movieApiService: MoviesApiService){}
 
   LIMITS = [
     { key: '5', value: 5 },
@@ -31,8 +30,6 @@ export class TableComponent  implements OnInit{
 
   limit: number = this.LIMITS[0].value;
   rowLimits: Array<any> = this.LIMITS;
-
-
 
   public temp: Array<object> = [];
   public columns = [
@@ -67,14 +64,13 @@ export class TableComponent  implements OnInit{
 
     })
 
-
     this.movies.map((key, value)=> {
 
       console.log(key)
       console.log(value)
     });
 
-    this.http.get(`http://127.0.0.1:5000/movies?size=${this.limit}`).subscribe(
+    this.movieApiService.getMovies(this.limit).subscribe(
       (response: any) => {
         this.movies = response.data;
         this.temp = response.data;
@@ -90,15 +86,7 @@ export class TableComponent  implements OnInit{
   updateFilter(event:any) {
     const value = event.toString().toLowerCase().trim();
 
-    console.log(event)
-
-    let url = ` http://127.0.0.1:5000/search`
-    if (value !== ""){
-      url = ` http://127.0.0.1:5000/search/${value}`
-    }
-
-    // console.log(url)
-    this.http.get(url).subscribe(
+    this.movieApiService.searchMovies(value).subscribe(
       (response: any) => {
         this.movies = response.data;
         this.temp = response.data;
@@ -115,7 +103,7 @@ export class TableComponent  implements OnInit{
     this.loadingIndicator = true;
     var page_next = pageInfo.offset+1;
 
-    this.http.get(`http://127.0.0.1:5000/movies?page=${page_next}`).subscribe(
+    this.movieApiService.getMovies(page_next, this.limit).subscribe(
       (response: any) => {
         this.movies = response.data;
         this.pagination = response.pagination;
@@ -135,7 +123,7 @@ export class TableComponent  implements OnInit{
 
     const current_page = this.pagination.currentPage.split('page=')[1];
 
-    this.http.get(`http://127.0.0.1:5000/movies?size=${this.limit}&page=${current_page}`).subscribe(
+    this.movieApiService.getMovies(+current_page,this.limit).subscribe(
       (response: any) => {
         this.movies = response.data;
         this.pagination = response.pagination;

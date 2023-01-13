@@ -4,6 +4,8 @@ import { AuthResponseData } from "../shared/authresponse.model";
 import { catchError, tap } from 'rxjs/operators';
 import { throwError, BehaviorSubject, Subject } from 'rxjs';
 import { User } from "../shared/user.model";
+import { environment } from "src/environments/environment";
+
 
 @Injectable({providedIn: 'root'})
 export class AuthService {
@@ -13,7 +15,7 @@ export class AuthService {
 
     signUp = (email: string|null, first_name: string|null, last_name: string|null, password: string|null) => {
 
-        return this.http.post<AuthResponseData>('http://127.0.0.1:5000/user/register',{
+        return this.http.post<AuthResponseData>( `${environment.apiUrl}/user/register'`,{
             email: email,
             password: password,
             first_name: first_name,
@@ -34,7 +36,7 @@ export class AuthService {
 
     signIn = (email: string|null, password: string|null) => {
         console.log(email, password)
-        return this.http.post<AuthResponseData>('http://127.0.0.1:5000/user/login',{
+        return this.http.post<AuthResponseData>(`${environment.apiUrl}/user/login`,{
                 email: email,
                 password: password
             })
@@ -53,7 +55,7 @@ export class AuthService {
 
     signOut = () => {
         console.log("Signing out of the system")
-        return this.http.post('http://127.0.0.1:5000/user/login',{}).subscribe((response)=>{
+        return this.http.post(`${environment.apiUrl}/user/logout`,{}).subscribe((response)=>{
             console.log("response: "+response)
             console.log("Logged out !");
         });

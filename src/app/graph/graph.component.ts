@@ -3,7 +3,7 @@ import { AfterViewInit, Component, OnInit, ViewChild, ViewChildren, } from '@ang
 
 import { ChartData } from '../shared/chartdata.model';
 import { ChartComponent } from 'angular2-chartjs';
-
+import { MoviesApiService } from '../services/movies-api.service';
 
 @Component({
   selector: 'app-graph',
@@ -16,7 +16,7 @@ export class GraphComponent implements AfterViewInit {
   @ViewChild("listingBar") chart2: ChartComponent| any; 
   @ViewChild("generalBar") chart3: ChartComponent| any; 
 
-  constructor(private http:HttpClient){}
+  constructor(private http:HttpClient, private movieAPIService: MoviesApiService){}
 
   options = {
     responsive: true,
@@ -51,7 +51,8 @@ export class GraphComponent implements AfterViewInit {
 
 
   ngAfterViewInit(): void {
-    this.http.get(`http://127.0.0.1:5000/statistics`).subscribe(
+
+    this.movieAPIService.getStatistics().subscribe(
       (response: any) => {
 
         this.movies_year = response.data.movies_year;
