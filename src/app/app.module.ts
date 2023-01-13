@@ -27,6 +27,7 @@ import { RegisterComponent } from './login/register/register.component';
 import { LoadingSpinnerComponent } from './shared/loading-spinner/loading-spinner.component';
 import { CsvModule } from '@ctrl/ngx-csv';
 import { AuthInterceptorService } from './services/auth-interceptor.service';
+import { UserProfileComponent } from './login/user-profile/user-profile.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { AuthInterceptorService } from './services/auth-interceptor.service';
     GraphComponent,
     LoginComponent,
     RegisterComponent,
-    LoadingSpinnerComponent
+    LoadingSpinnerComponent,
+    UserProfileComponent
   ],
   imports: [
     BrowserModule,

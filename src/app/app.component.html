@@ -10,13 +10,28 @@
     <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
                  [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
       <mat-nav-list *ngIf="isAuthenticated">
-        <a mat-list-item routerLink="/" *ngIf="isAuthenticated">Dashboard</a>
-        <a mat-list-item routerLink="/table" *ngIf="isAuthenticated">Table</a>
-        <a mat-list-item routerLink="/charts" *ngIf="isAuthenticated">Charts</a>
+        <a mat-list-item routerLink="/" *ngIf="isAuthenticated">
+          <mat-icon aria-hidden="false" aria-label="Dashboard" fontIcon="dashboard"></mat-icon>
+          Dashboard
+        </a>
+        <a mat-list-item routerLink="/table" *ngIf="isAuthenticated">
+          <mat-icon aria-hidden="false" aria-label="Table Data" fontIcon="view_list"></mat-icon>
+
+          Table</a>
+        <a mat-list-item routerLink="/charts" *ngIf="isAuthenticated">
+          <mat-icon aria-hidden="false" aria-label="Chart Data" fontIcon="analytics"></mat-icon>
+          Charts
+        </a>
+        <a mat-list-item routerLink="/profile" *ngIf="isAuthenticated">
+          <mat-icon aria-hidden="false" aria-label="user Profile" fontIcon="person"></mat-icon>
+          User
+        </a>
+
           <a
           class="dashboard-sidenav-container-logout-item"
           mat-list-item  *ngIf="isAuthenticated" (click)="onLogOut()">
-          <h2>Logout</h2>
+          <mat-icon aria-hidden="false" aria-label="Logout" fontIcon="logout"></mat-icon>
+          Logout
         </a>
       </mat-nav-list>
     </mat-sidenav>

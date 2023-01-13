@@ -1,0 +1,45 @@
+<div class="login-container">
+    <div *ngIf="isLoading" style="justify-content: center;">
+        <app-loading-spinner></app-loading-spinner>
+
+    </div>
+    <mat-card *ngIf="!isLoading">
+        <mat-card-title style="text-align: center;">
+            User Profile
+        </mat-card-title>
+        <mat-divider></mat-divider>
+
+        <mat-card-content>
+            <div>
+            </div>
+            <mat-error style="text-align: center;" *ngIf="error">{{error}}</mat-error>
+            <form #loginForm (ngSubmit)="onSubmit()">
+                <p>
+                    <mat-form-field class="form-field">
+                        <mat-label>E-Mail</mat-label>
+                        <input matInput placeholder="johndo@example.com" [formControl]="email" id="email" required [value]="email">
+                        <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </p>
+
+                <p>
+                    <mat-form-field class="form-field">
+                        <mat-label>First Name</mat-label>
+                        <input matInput placeholder="john" [formControl]="first_name" id="first_name" required [value]="first_name">
+                        <mat-error *ngIf="first_name.invalid">{{getFirstNameErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </p>
+
+                <p>
+                    <mat-form-field class="form-field">
+                        <mat-label>Last Name </mat-label>
+                        <input matInput placeholder="doe" [formControl]="last_name" id="last_name" required [value]="last_name">
+                        <mat-error *ngIf="last_name.invalid">{{getLastNameErrorMessage()}}</mat-error>
+                    </mat-form-field>
+                </p>
+
+            </form>
+        </mat-card-content>
+    </mat-card>
+</div>
+
