@@ -69,14 +69,13 @@ export class GraphComponent implements AfterViewInit {
 
         if (response.data.listings){
           response.data.listings.map((item:any)=>{
-            console.log(item.name)
             this.listingsData.datasets.push({label: item.name, data: [item.total],  backgroundColor: ["#00bfa0"]
           })
           })
         }
 
         this.generalData.datasets.push({label: "", data: [response.data.total_movies],
-        backgroundColor: ["#27aeef", "black"]})
+        backgroundColor: ["#27aeef"]})
 
         if (response.data.types){
           response.data.types.map((item:any)=>{

@@ -1,14 +1,16 @@
 import {MediaMatcher} from '@angular/cdk/layout';
-import {ChangeDetectorRef, Component, OnDestroy} from '@angular/core';
+import {AfterViewInit, ChangeDetectorRef, Component, OnDestroy, OnInit} from '@angular/core';
 import { AuthService } from './services/auth.service';
 import { Subscription } from 'rxjs';
+import { User } from './shared/user.model';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnDestroy{
+export class AppComponent implements OnDestroy, OnInit{
   title = 'movies-dashboard-app';
   mobileQuery: MediaQueryList;
 
@@ -17,12 +19,20 @@ export class AppComponent implements OnDestroy{
   isAuthenticated = false;
 
   private _mobileQueryListener: () => void;
-  
+
   constructor(changeDetectorRef: ChangeDetectorRef, media: MediaMatcher,
-    private authService:AuthService) {
+    private authService:AuthService,
+    private router: Router) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
+
+  }
+
+  onLogOut = () =>{
+    this.authService.signOut();
+    this.isAuthenticated = false;
+    this.router.navigate(['/login']);
   }
 
   ngOnDestroy(): void {
@@ -31,9 +41,26 @@ export class AppComponent implements OnDestroy{
   }
 
   ngOnInit(): void {
+
+    // Check to see if the user is already authenticated
+    this.authService.checkUserIsLoggedIn();
     this.userSub = this.authService.user.subscribe((user)=>{
-      this.isAuthenticated = !user ? false: true;
+
+      if (user?.isAuthenticated){
+        this.isAuthenticated = true;
+        this.router.navigate(["/dashboard"]);
+      }
+
     });
+
+    this.authService.isLoggedIn.subscribe(isLoggedIn=>{
+
+      if (isLoggedIn){
+        this.isAuthenticated = isLoggedIn
+      }
+
+    })
   }
+
 
 }

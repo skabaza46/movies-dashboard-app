@@ -2,18 +2,34 @@ h1 {
     text-align: center;
 }
 
-.header-title {
-    background-color: #E50914;
-    color: white;
-}
-
-
 html, body {
     height: 100%;
     box-sizing: border-box;
     margin: 0;
 }
 
+.dashboard-toolbar h1{
+    width:500px;
+    margin: 0 auto;
+
+    text-align: center;
+}
+
+.dashboard-sidenav-container-logout-item{
+    position: absolute;
+    bottom: 0;
+    font-weight: bolder;
+
+}
+
+.dashboard-sidenav-container-logout-item:hover{
+    border-top: 8px solid #3f51b5;
+
+}
+
+.mat-icon-logout {
+    font-size: 30px !important;
+  }
 
 .dashboard-container {
     display: flex;
@@ -25,15 +41,13 @@ html, body {
     right: 0;
   }
 
-  .dashboard-is-mobile .example-toolbar {
+  .dashboard-is-mobile .dashboard-toolbar {
     position: fixed;
     /* Make sure the toolbar will stay on top of the content as it scrolls past. */
     z-index: 2;
   }
 
-  h1.dashboard-app-name {
-    margin-left: 8px;
-  }
+
 
   .dashboard-sidenav-container {
     /* When the sidenav is not fixed, stretch the sidenav container to fill the available space. This

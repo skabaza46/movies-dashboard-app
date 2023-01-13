@@ -1,8 +1,8 @@
-import { HttpClient, HttpErrorResponse } from "@angular/common/http";
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { AuthResponseData } from "../shared/authresponse.model";
 import { catchError, tap } from 'rxjs/operators';
-import { throwError, BehaviorSubject, Subject } from 'rxjs';
+import { throwError, BehaviorSubject, Observable } from 'rxjs';
 import { User } from "../shared/user.model";
 import { environment } from "src/environments/environment";
 
@@ -10,6 +10,7 @@ import { environment } from "src/environments/environment";
 @Injectable({providedIn: 'root'})
 export class AuthService {
     user = new  BehaviorSubject<User|null>(null);
+    isLoggedIn = new  BehaviorSubject<boolean>(false);
 
     constructor(private http: HttpClient){}
 
@@ -54,13 +55,50 @@ export class AuthService {
     }
 
     signOut = () => {
-        console.log("Signing out of the system")
         return this.http.post(`${environment.apiUrl}/user/logout`,{}).subscribe((response)=>{
-            console.log("response: "+response)
-            console.log("Logged out !");
+
+            localStorage.removeItem('token');
+            this.user.next(null);
+            this.isLoggedIn.next(false);
+
         });
     }
 
+    checkTokenIsValid = (token: string) => {
+
+        let headers = new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization':`Bearer ${token}`});
+        let options = { headers: headers };
+
+        this.http.post<{data:User}>(`${environment.apiUrl}/user/check-token`,null,options,).subscribe((response)=>{
+
+            const user = new User(
+                response.data.email,
+                response.data.first_name,
+                response.data.last_name,
+                response.data.token,
+                true
+            )
+            this.user.next(user);
+            this.isLoggedIn.next(true);
+        },
+        (error)=>{
+            console.warn(error);
+            this.isLoggedIn.next(false);
+
+        });
+    }
+
+    checkUserIsLoggedIn = () => {
+
+        const user_token = localStorage.getItem("token");
+
+        if (user_token){
+            // Check if the user token is valid
+            this.checkTokenIsValid(user_token);
+        }
+    }
 
     private handleAuthentication(
         email: string,
@@ -69,7 +107,10 @@ export class AuthService {
         token: string
       ) {
         const user = new User(email, first_name, last_name,token);
+
+        localStorage.setItem("token", token);
         this.user.next(user);
+        this.isLoggedIn.next(true);
       }
 
       private handleError(errorRes: HttpErrorResponse) {

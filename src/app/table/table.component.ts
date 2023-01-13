@@ -64,12 +64,6 @@ export class TableComponent  implements OnInit{
 
     })
 
-    this.movies.map((key, value)=> {
-
-      console.log(key)
-      console.log(value)
-    });
-
     this.movieApiService.getMovies(this.limit).subscribe(
       (response: any) => {
         this.movies = response.data;

@@ -36,9 +36,6 @@ export class LoginComponent implements OnInit {
   isLoading = false;
   error: string = '';
 
-  user = new Subject<User>();
-
-
   onSwitchMode() {
     this.isLoginMode = !this.isLoginMode;
   }
@@ -75,20 +72,8 @@ export class LoginComponent implements OnInit {
     return this.email.hasError('password') ? 'Not a valid password' : '';
   }
 
-  isUserLoggedIn = () => {
-    const token = localStorage.getItem("token");
-
-    if ( token){
-      this.isLoggedIn.emit(true);
-      console.log("User is already logged in!");
-      console.log(`token: ${token}`);
-    }else{
-      console.log("User is unauthenticated !");
-    }
-  }
-
   ngOnInit(): void {
-    this.isUserLoggedIn();
+
   }
 
   onSubmit = () => {
@@ -108,12 +93,11 @@ export class LoginComponent implements OnInit {
 
     }
 
-
     this.authObs.subscribe(
       resData => {
-        console.log(resData);
         this.isLoading = false;
         this.router.navigate(['/dashboard']);
+        this.isLoggedIn.next(false);
       },
       errorMessage => {
         console.log(errorMessage);

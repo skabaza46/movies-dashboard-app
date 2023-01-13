@@ -1,14 +1,15 @@
 
   <div class="login-container">
-    <mat-card>
+    <div *ngIf="isLoading" style="justify-content: center;">
+        <app-loading-spinner></app-loading-spinner>
+
+    </div>
+    <mat-card *ngIf="!isLoading">
         <mat-card-content>
             <div>
             </div>
-            <div *ngIf="isLoading" style="justify-content: center;">
-                <app-loading-spinner></app-loading-spinner>
 
-            </div>
-            <form #loginForm (ngSubmit)="onSubmit()" *ngIf="!isLoading">
+            <form #loginForm (ngSubmit)="onSubmit()">
                 <p>
                     <mat-form-field class="form-field">
                         <mat-label>Enter your email</mat-label>
