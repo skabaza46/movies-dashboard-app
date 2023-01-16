@@ -13,11 +13,12 @@ const routes: Routes = [
   { path: 'table', component: TableComponent, canActivate: [AuthGuard], pathMatch: 'full' },
   { path: 'charts', component: GraphComponent, canActivate: [AuthGuard], pathMatch: 'full' },
   { path: 'login', component: LoginComponent, pathMatch: 'full' },
-  { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard], pathMatch: 'full' }
+  { path: 'profile', component: UserProfileComponent, canActivate: [AuthGuard], pathMatch: 'full' },
+  { path: '**', component: DashboardComponent, canActivate: [AuthGuard], pathMatch: 'full' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

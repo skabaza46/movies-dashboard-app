@@ -6,9 +6,9 @@ env_variables:
   BUCKET_NAME: "movies-dashboard-app-bucket"
 
 handlers:
-- url: /
-  static_files: dist/movies-dashboard-app/index.html
-  upload: dist/movies-dashboard-app/index.html
+  - url: /
+    static_files: dist/movies-dashboard-app/index.html
+    upload: dist/movies-dashboard-app/index.html
 
-- url: /
-  static_dir: dist/movies-dashboard-app
+  - url: /
+    static_dir: dist/movies-dashboard-app
