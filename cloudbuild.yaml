@@ -12,5 +12,5 @@ steps:
 
   # Deploy to google cloud app engine
   - name: "gcr.io/cloud-builders/gcloud"
-    args: ["app", "deploy", '[/app.yaml]', "--version=prod"]
+    args: ["app", "deploy", "app.yaml", "--version=prod"]
     dir: "./movies-dashboard-app"
