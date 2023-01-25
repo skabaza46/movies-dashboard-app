@@ -6,7 +6,7 @@ steps:
     dir: "movies-dashboard-app"
 
   # Build production package
-  - name: "gcr.io/heroic-idea-238116/ng"
+  - name: "gcr.io/cloud-builders/npm:latest"
     args: ["build", "--prod"]
     dir: "movies-dashboard-app"
 
