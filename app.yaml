@@ -8,13 +8,3 @@ handlers:
   - url: /(.*)
     static_files: dist/movies-dashboard-app/index.html
     upload: dist/movies-dashboard-app/index.html
-
-skip_files:
-  - e2e/
-  - node_modules/
-  - src/
-  - ^(.*/)?\..*$
-  - ^(.*/)?.*\.json$
-  - ^(.*/)?.*\.md$
-  - ^(.*/)?.*\.yaml$
-  - ^LICENSE
