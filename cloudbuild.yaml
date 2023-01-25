@@ -7,7 +7,7 @@ steps:
 
   # Build production package
   - name: "gcr.io/cloud-builders/npm:latest"
-    args: ["build", "--prod"]
+    args: ['run', 'build', '--prod' ]
     dir: "movies-dashboard-app"
 
   # Deploy to google cloud app engine
