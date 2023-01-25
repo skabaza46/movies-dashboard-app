@@ -3,14 +3,14 @@ steps:
   # Install node packages
   - name: "gcr.io/cloud-builders/npm:latest"
     args: ["install"]
-    # dir: "movies-dashboard-app"
+    dir: "./movies-dashboard-app"
 
   # Build production package
   - name: "gcr.io/cloud-builders/npm:latest"
     args: ['run', 'build', '--prod' ]
-    # dir: "movies-dashboard-app"
+    dir: "./movies-dashboard-app"
 
   # Deploy to google cloud app engine
   - name: "gcr.io/cloud-builders/gcloud"
     args: ["app", "deploy", "--version=prod"]
-    # dir: "movies-dashboard-app"
+    dir: "./movies-dashboard-app"
