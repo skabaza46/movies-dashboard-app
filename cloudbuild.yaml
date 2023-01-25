@@ -6,7 +6,7 @@ steps:
     dir: "movies-dashboard-app"
 
   # Build production package
-  - name: "gcr.io/770477083157/ng"
+  - name: "gcr.io/heroic-idea-238116/ng"
     args: ["build", "--prod"]
     dir: "movies-dashboard-app"
 
