@@ -17,7 +17,7 @@
                 <p>
                     <mat-form-field class="form-field">
                         <mat-label>E-Mail</mat-label>
-                        <input matInput placeholder="johndo@example.com" [formControl]="email" id="email" required [value]="email">
+                        <input matInput placeholder="johndo@example.com" [formControl]="email" id="email" [value]="email">
                         <mat-error *ngIf="email.invalid">{{getEmailErrorMessage()}}</mat-error>
                     </mat-form-field>
                 </p>
@@ -25,7 +25,7 @@
                 <p>
                     <mat-form-field class="form-field">
                         <mat-label>First Name</mat-label>
-                        <input matInput placeholder="john" [formControl]="first_name" id="first_name" required [value]="first_name">
+                        <input matInput placeholder="john" [formControl]="first_name" id="first_name" [value]="first_name">
                         <mat-error *ngIf="first_name.invalid">{{getFirstNameErrorMessage()}}</mat-error>
                     </mat-form-field>
                 </p>
@@ -33,10 +33,15 @@
                 <p>
                     <mat-form-field class="form-field">
                         <mat-label>Last Name </mat-label>
-                        <input matInput placeholder="doe" [formControl]="last_name" id="last_name" required [value]="last_name">
+                        <input matInput placeholder="doe" [formControl]="last_name" id="last_name" [value]="last_name">
                         <mat-error *ngIf="last_name.invalid">{{getLastNameErrorMessage()}}</mat-error>
                     </mat-form-field>
                 </p>
+                <div>
+                    <mat-card-actions class="form-button" >
+                        <button type="submit" mat-raised-button color="primary" [disabled]="email.invalid || first_name.invalid || last_name.invalid">Update</button>
+                    </mat-card-actions>
+                </div>
 
             </form>
         </mat-card-content>

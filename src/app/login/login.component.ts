@@ -28,10 +28,6 @@ export class LoginComponent implements OnInit {
 
   hidePassword = true;
 
-  @Output() isLoggedIn= new EventEmitter<boolean>
-
-  @Output() user_profile = new EventEmitter<{}>;
-
   isLoginMode = true;
   isLoading = false;
   error: string = '';
@@ -97,7 +93,6 @@ export class LoginComponent implements OnInit {
       resData => {
         this.isLoading = false;
         this.router.navigate(['/dashboard']);
-        this.isLoggedIn.next(false);
         this.error = "";
       },
       errorMessage => {

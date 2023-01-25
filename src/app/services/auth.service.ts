@@ -64,6 +64,33 @@ export class AuthService {
         });
     }
 
+
+    autoLogin() {
+      const userInfo: {
+          email: string,
+          first_name: string,
+          last_name: string,
+          token: string
+      } = JSON.parse(localStorage.getItem("user"));
+      if (!userInfo){
+          return;
+      };
+
+      console.log(userInfo)
+
+      if (userInfo) {
+          this.handleAuthentication(
+            userInfo.email,
+            userInfo.first_name,
+            userInfo.last_name,
+            userInfo.token
+          );
+
+          this.isLoggedIn.next(true);
+      };
+
+  };
+
     checkTokenIsValid = (token: string) => {
 
         let headers = new HttpHeaders({
@@ -90,16 +117,6 @@ export class AuthService {
         });
     }
 
-    checkUserIsLoggedIn = () => {
-
-        const user_token = localStorage.getItem("token");
-
-        if (user_token){
-            // Check if the user token is valid
-            this.checkTokenIsValid(user_token);
-        }
-    }
-
     private handleAuthentication(
         email: string,
         first_name: string,
@@ -108,7 +125,6 @@ export class AuthService {
       ) {
         const user = new User(email, first_name, last_name,token);
 
-        localStorage.setItem("token", token);
         this.user.next(user);
         this.isLoggedIn.next(true);
       }

@@ -16,8 +16,6 @@ export class AppComponent implements OnDestroy, OnInit{
 
   userSub = new Subscription;
 
-  // userProfile =  Observable<User>;
-
   isAuthenticated = false;
 
   private _mobileQueryListener: () => void;
@@ -43,25 +41,11 @@ export class AppComponent implements OnDestroy, OnInit{
   }
 
   ngOnInit(): void {
+    this.authService.autoLogin();
 
-    // Check to see if the user is already authenticated
-    this.authService.checkUserIsLoggedIn();
-    this.userSub = this.authService.user.subscribe((user)=>{
-
-      if (user?.isAuthenticated){
-        this.isAuthenticated = true;
-        this.router.navigate(["/dashboard"]);
-      }
-
-    });
-
-    this.authService.isLoggedIn.subscribe(isLoggedIn=>{
-
-      if (isLoggedIn){
-        this.isAuthenticated = isLoggedIn;
-      }
-
-    })
+    this.userSub = this.authService.user.subscribe(user => {
+      this.isAuthenticated = !!user;
+  });
   }
 
 
