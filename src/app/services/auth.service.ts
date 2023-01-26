@@ -57,7 +57,7 @@ export class AuthService {
     signOut = () => {
         return this.http.post(`${environment.apiUrl}/user/logout`,{}).subscribe((response)=>{
 
-            localStorage.removeItem('token');
+            localStorage.removeItem('user');
             this.user.next(null);
             this.isLoggedIn.next(false);
 
@@ -127,6 +127,7 @@ export class AuthService {
 
         this.user.next(user);
         this.isLoggedIn.next(true);
+        localStorage.setItem("user", JSON.stringify(user))
       }
 
       private handleError(errorRes: HttpErrorResponse) {
