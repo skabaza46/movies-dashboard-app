@@ -1,10 +1,18 @@
 runtime: nodejs18
 
-handlers:
-  - url: /(.*\.(gif|png|jpg|css|js)(|\.map))$
-    static_files: dist/movies-dashboard-app/\1
-    upload: dist/movies-dashboard-app/(.*)(|\.map)
+# handlers:
+#   - url: /(.*\.(gif|png|jpg|css|js)(|\.map))$
+#     static_files: dist/movies-dashboard-app/\1
+#     upload: dist/movies-dashboard-app/(.*)(|\.map)
 
-  - url: /(.*)
+#   - url: /(.*)
+#     static_files: dist/movies-dashboard-app/index.html
+#     upload: dist/movies-dashboard-app/index.html
+
+
+handlers:
+  - url: /
     static_files: dist/movies-dashboard-app/index.html
     upload: dist/movies-dashboard-app/index.html
+  - url: /
+    static_dir: dist/movies-dashboard-app
