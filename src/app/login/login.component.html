@@ -1,9 +1,6 @@
 
   <div class="login-container">
-    <div *ngIf="isLoading" style="justify-content: center;">
-        <app-loading-spinner></app-loading-spinner>
-
-    </div>
+    <app-loading-spinner  *ngIf="isLoading"></app-loading-spinner>
     <mat-card *ngIf="!isLoading">
         <mat-card-content>
             <div>
